@@ -1,4 +1,4 @@
-package delegates;
+package com.giane.delegates;
 
 import lombok.extern.log4j.Log4j2;
 import org.activiti.engine.delegate.DelegateExecution;

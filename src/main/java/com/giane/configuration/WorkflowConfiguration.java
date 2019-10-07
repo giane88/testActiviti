@@ -1,11 +1,11 @@
-package configuration;
+package com.giane.configuration;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
-import org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration;
-
-import java.io.FileInputStream;
+import org.activiti.engine.impl.asyncexecutor.AsyncExecutor;
+import org.activiti.engine.impl.asyncexecutor.ManagedAsyncJobExecutor;
+import org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
 
 public class WorkflowConfiguration {
   final ProcessEngine processEngine;
@@ -19,13 +19,12 @@ public class WorkflowConfiguration {
   }
 
   private ProcessEngine setUpProcessEngine(String workFlowName) {
-    ProcessEngineConfiguration cfg = null;
-    cfg = new StandaloneProcessEngineConfiguration()
-        .setJdbcUrl("jdbc:h2:mem:activiti;DB_CLOSE_DELAY=1000")
-        .setJdbcUsername("sa")
-        .setJdbcPassword("")
-        .setJdbcDriver("org.h2.Driver")
-        .setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
+    ProcessEngineConfiguration cfg;
+    AsyncExecutor asyncExecutor = new ManagedAsyncJobExecutor();
+    cfg = new StandaloneInMemProcessEngineConfiguration()
+        .setAsyncExecutor(asyncExecutor)
+        .setAsyncExecutorEnabled(true)
+        .setAsyncExecutorActivate(true);
     final ProcessEngine processEngine = cfg.buildProcessEngine();
     RepositoryService repositoryService = processEngine.getRepositoryService();
     repositoryService.createDeployment().addClasspathResource("activiti/" + workFlowName)

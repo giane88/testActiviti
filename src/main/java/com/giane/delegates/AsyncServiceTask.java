@@ -1,4 +1,4 @@
-package delegates;
+package com.giane.delegates;
 
 import lombok.extern.log4j.Log4j2;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -9,7 +9,6 @@ public class AsyncServiceTask implements JavaDelegate {
   @Override
   public void execute(DelegateExecution execution) throws Exception {
     log.info("Sleeping for 3 second");
-    System.out.println("AsyncTask");
     Thread.sleep(3000);
     log.warn("AsyncCompleted");
   }

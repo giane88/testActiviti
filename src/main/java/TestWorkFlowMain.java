@@ -1,10 +1,11 @@
-import configuration.WorkflowConfiguration;
-import configuration.WorkflowManipulator;
-import org.activiti.engine.RuntimeService;
+import com.giane.configuration.WorkflowConfiguration;
+import com.giane.configuration.WorkflowManipulator;
+import lombok.extern.log4j.Log4j2;
 import org.activiti.engine.runtime.ProcessInstance;
 
 import java.io.IOException;
 
+@Log4j2
 public class TestWorkFlowMain {
 
   public static void main(String[] args) throws IOException {
@@ -12,9 +13,5 @@ public class TestWorkFlowMain {
     WorkflowConfiguration workflowConfiguration = new WorkflowConfiguration("test.bpmn");
     WorkflowManipulator workflowManipulator = new WorkflowManipulator("testProcess", workflowConfiguration.getProcessEngine());
     ProcessInstance processInstance = workflowManipulator.startProcess();
-    System.in.read();
-    while (processInstance.isEnded()) {
-      return;
-    }
   }
 }

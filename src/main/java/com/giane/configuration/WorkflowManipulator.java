@@ -1,4 +1,4 @@
-package configuration;
+package com.giane.configuration;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.runtime.ProcessInstance;
